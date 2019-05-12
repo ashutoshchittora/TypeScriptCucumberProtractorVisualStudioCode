@@ -1,0 +1,57 @@
+
+C:\Users\ASHUTOSH\AshutoshDrive\EclipseWorkspaces\GitProjects\TypeScript contains my VS Code workspace as 'ProtractorTypeScriptCucumber'
+In this workspace i have my .git folder
+
+Also the npm_modules is added to .gitignore folder and whwnever there are new packages you install using 'npm' command then the relevant changes are made to node_module.
+Now if you want to make a workspcae elsewhere using git server repo then you need to run 'npm init /install' each time to
+create node_module dynamically.
+
+----------------------------------------------------------------------------------------------------------
+Handy information about the project framewoork - TypeScrict-Cucumber-Protractor using VSCode
+----------------------------------------------------------------------------------------------------------
+
+ALL OF below IS also AVAILABLE ON --- www.protractortest.org
+
+1) package.json file is used to download dependencies just like pom.xml
+2) '~' in <dependencies> says that it will automatically download the latest 3.3.4 v if available is 3.3.3 ( i.e. till third version)
+3) '^' in <dependencies> says that it will automatically download the latest 3.3.4 v if available is 3.2.3 ( i.e. till second version)
+4) >> 'npm install' - this command will read package.json and and will download dependecies mentioned in this file.
+5) "types/jasmine", "@types/jasminewd2" is additonally needed apart from 'typescript' and 'jasmine' because it converts 
+    the typescript commands into language which protractor/jasmine can understand.
+6) browser , element , By etcc.. are protractor types and need to be imported to typescript project .
+    Unlike javascript , typecript does not uderstand these keywords unless imported to a specific project folder.
+7) protractor compiler is designed to run JS only. hence we need tsconfig.json and hence we use command 
+    '>> protractor .\JSFilesTarget\configuration.js'
+8) >> tsc --init -- this will create tsconfig.json file . this file is required to convert typescript files to javascript.
+    Hence the command '>> tsc ./TypeScriptBasics.ts' and then '>> node ./TypeScriptBasics.js' . Observe the file extensions
+8) Copy all .js files into VSCode as .ts and on top include -- "import {browser,by,element} from "protractor";"
+9) configuration.ts -- this is  similar to configuration.js as used in eclipse
+10) '>> ts' -- this command converts all .ts files to .js files . Input required is a vaild tsconfig.json file
+11) install protractor and typescript globally as '>>npm install -g protractor ' so that 
+    the cmd can understand the 'tsc' and 'protractor' commands
+12) from ES7 js compiler onwards Webdriver Control Flow ( waiting for script to execute ) will be depreciated.
+    Hence , the wait can be configured either of --'async/await' OR 'promises' . 'await' can only be used on a 'async' function.
+13) 'ElementFinder' -- this is the return type of each --element(by.*("finderss"))-- method
+14) Till the time now we were executing tests using two commands in sequence as :
+    >>tsc and then >>protractor /JSFilesTarget/configuration.js .
+    This can be achieved by just one command as >>npm run test
+    As on my machine i have installed protractor and webdrivrer-update globally ( uisng -g) these two commands runs seemlessly.
+    But if i zip and run on other machine ,scripts will fail because protractor strogly suggests not to install globally.
+    thus we can make use of  'package.json' file having a tag as --> "scripts": { } .
+    here 'pretest' is by default tag provided by protractor which acts like @Before tag.
+    'test' acts like @Test command.
+    instead installing globally i can use 'protractor' and tell scripts to find the command under 'node_module/built/bin/cli.js.
+    'cli.js' is the heart of protractor and hence the 'TestRunner' configuration was set to this path in eclipse.
+    The same is used for 'webdriver-update' (not user-defined ) and this will update the 'node_module/protractor' 
+    folder of the current project only .    
+15) use 'protractor-cucumber-framework' for support of cucumber in Protractor in 'package.josn' file to get cucumber.
+16) instead of utilizing 'configuration.ts' i have created  a new file 'cucumberConfiguration.ts' so that i can refer both configs for 
+    non-ccucumber and cucumer projects respectively.
+17) protractor knows when and how long to wait but when combined with cucumber it gets confused , hence we need to create a 
+    timeout.ts file and add a default global wait like we do in Selenium as Implicit wait.
+
+-----------------------------------------------------------------------------------------
+                Documentation for further  reading :
+------------------------------------------------------------------------------------------
+1) https://github.com/protractor-cucumber-framework/protractor-cucumber-framework
+2) https://protractortest.org ( this site has mny github projects to refer under tutorials - https://github.com/angular/protractor/tree/5.4.1/exampleTypescript)
